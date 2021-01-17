@@ -55,7 +55,7 @@ export default {
       if(email == null) {
        
        
-            this.feedback = "请输入邮箱"
+            this.feedback = "Please enter your email"
           
         return;
       }
