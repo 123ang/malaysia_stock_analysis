@@ -10,7 +10,7 @@ const store = new Vuex.Store({
 
     isLoggedIn: false,
     Email: false,
-  
+    language: "",
     
   },
   getters: {
@@ -24,7 +24,9 @@ const store = new Vuex.Store({
     Email(state, data) {
       state.Email = data;
     },
-
+    language(state,data) {
+      state.language = data
+    },
    
   },
   actions: {

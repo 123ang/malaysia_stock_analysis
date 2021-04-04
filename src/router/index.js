@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store' 
 import Home from '@/views/Home'
+import ProfitCalculator from '@/views/ProfitCalculator'
+import SearchStock from '@/views/SearchStock'
+import TodayStock from '@/views/TodayStock'
 import Login from '@/views/Login'
 
 Vue.use(VueRouter)
@@ -11,6 +14,30 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/today-stock',
+    name: 'TodayStock',
+    component: TodayStock,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/search-stock',
+    name: 'SearchStock',
+    component: SearchStock,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/profit-calculator',
+    name: 'ProfitCalculator',
+    component: ProfitCalculator,
     meta: {
       requiresAuth: true
     }
