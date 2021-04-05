@@ -20,11 +20,11 @@
                 </option>
 
                 <option value="code">
-                     <span v-if="Language == 'cn'">代号</span>
+                    <span v-if="Language == 'cn'">代号</span>
                     <span v-if="Language == 'en'">Code</span>
                 </option>
                 <option value="name">
-                     <span v-if="Language == 'cn'">名字</span>
+                    <span v-if="Language == 'cn'">名字</span>
                     <span v-if="Language == 'en'">Name</span>
                 </option>
 
@@ -32,7 +32,7 @@
             <v-divider></v-divider>
         </div>
         <div class="field input_field">
-             <label for="input_field">
+            <label for="input_field">
                 {{ input_type }}
             </label>
             <input type="text" v-model="input_field">
@@ -46,44 +46,154 @@
             <br><br>
         </div>
     </div>
+    <br>
+    <div class="container">
+        <sorted-table :values="datas" ascIcon="<span> ▲</span>" descIcon="<span> ▼</span>" v-if="searched">
+            <thead>
+                <tr style="text-align:center; vertical-align: middle;">
+                    <th>
+                        <sort-link name="code">
+                            <span>Stock</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="name">
+                            <span>Stock Name</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="trade_record_date">
+                            <span>Date Analysis</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="open_price">
+                            <span>Open </span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="close_price">
+                            <span> Close</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="high">
+                            <span> High</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="low">
+                            <span> Low</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="volume">
+                            <span> Volume</span>
+                        </sort-link>
+                    </th>
 
+                    <th>
+                        <sort-link name="candlestick_signal">
+                            <span> Candlestick Signal</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <template #body="sort">
+                <tbody>
+                    <tr v-for="(value, index) in sort.values" :key="index">
+                        <td>{{ value.stock_code }}</td>
+                        <td>{{ value.stock_name }}</td>
+                        <td>{{ value.trade_record_date}}</td>
+                        <td>{{ value.open_price }}</td>
+                        <td>{{ value.close_price }}</td>
+                        <td>{{ value.high }}</td>
+                        <td>{{ value.low }}</td>
+                        <td>{{ value.volume }}</td>
+                        <td>{{ value.candlestick_signal }}</td>
+                        <td>
+                            <v-btn @click="add_watchlist(value.stock_ID)">
+                                Add to my watchlist
+                            </v-btn>
+                        </td>
+                    </tr>
+                </tbody>
+            </template>
+        </sorted-table>
+    </div>
 </div>
 </template>
 
 <script>
+import axios from 'axios';
+import { SortedTable, SortLink } from "vue-sorted-table";
 export default {
     name: "SearchStock",
     components: {
-
+        SortedTable,
+        SortLink
     },
     data: function () {
         return {
             code_name: "code",
             input_field: "",
             feedback: "",
-            input_type: ""
+            input_type: "",
+            searched: false,
+            datas: []
         };
     },
     methods: {
         search() {
             this.feedback = ""
+            this.searched = true
+           // console.log(this.code_name)
+           // console.log(this.input_field)
+            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/search_stock.php', {
+                    code_name: this.code_name,
+                    value: this.input_field
+                })
+                .then(response => {
+                    this.datas = response.data
+                    //console.log(this.datas)
 
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        add_watchlist(stockid) {
+             axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
+                    email: this.UserEmail,
+                    stockid: stockid,
+                    action: 'add'
+                })
+                .then(response => {
+                   alert(response.data)
+                   
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         changeType() {
-            switch(this.code_name) {
-                case 'code' :
-                    if(this.Language == 'cn') {
+            switch (this.code_name) {
+                case 'code':
+                    if (this.Language == 'cn') {
                         this.input_type = "代号"
                     }
-                    if(this.Language == 'en') {
+                    if (this.Language == 'en') {
                         this.input_type = "Code"
                     }
                     break;
-                case 'name' :
-                     if(this.Language == 'cn') {
+                case 'name':
+                    if (this.Language == 'cn') {
                         this.input_type = "名字"
                     }
-                    if(this.Language == 'en') {
+                    if (this.Language == 'en') {
                         this.input_type = "Name"
                     }
                     break;

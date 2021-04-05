@@ -19,6 +19,8 @@
             <v-checkbox v-model="technical_analysis" label="MACD Buy Signal" value="macd_buy"></v-checkbox>
             <v-checkbox v-model="technical_analysis" label="Below Bonlinger Band" value="below_bonlinger_band"></v-checkbox>
             <v-checkbox v-model="technical_analysis" label="Above Bonlinger Band" value="above_bonlinger_band"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="Current Price below Than MA 20" value="below_ma20"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="Current Price Above MA 20" value="above_ma20"></v-checkbox>
         </div>
         <div class="field input_field">
             <label for="candlestick_pattern">
@@ -41,51 +43,140 @@
             <br><br>
         </div>
     </div>
+    <br>
+    <div>
+        <sorted-table :values="datas" ascIcon="<span> ▲</span>" descIcon="<span> ▼</span>" v-if="searched">
+            <thead>
+                <tr style="text-align:center; vertical-align: middle;">
+                    <th>
+                        <sort-link name="code">
+                            <span>Stock</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="name">
+                            <span>Stock Name</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="trade_record_date">
+                            <span>Date Analysis</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="open_price">
+                            <span>Open </span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="close_price">
+                            <span> Close</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="high">
+                            <span> High</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="low">
+                            <span> Low</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="volume">
+                            <span> Volume</span>
+                        </sort-link>
+                    </th>
 
+                    <th>
+                        <sort-link name="candlestick_signal">
+                            <span> Candlestick Signal</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <template #body="sort">
+                <tbody>
+                    <tr v-for="(value, index) in sort.values" :key="index">
+                        <td>{{ value.stock_code }}</td>
+                        <td>{{ value.stock_name }}</td>
+                        <td>{{ value.trade_record_date}}</td>
+                        <td>{{ value.open_price }}</td>
+                        <td>{{ value.close_price }}</td>
+                        <td>{{ value.high }}</td>
+                        <td>{{ value.low }}</td>
+                        <td>{{ value.volume }}</td>
+                        <td>{{ value.candlestick_signal }}</td>
+                        <td>
+                            <v-btn @click="add_watchlist(value.stock_ID)">
+                                Add to my watchlist
+                            </v-btn>
+                        </td>
+                    </tr>
+                </tbody>
+            </template>
+        </sorted-table>
+    </div>
+    <br><br>
 </div>
 </template>
 
 <script>
+import axios from 'axios';
+import { SortedTable, SortLink } from "vue-sorted-table";
 export default {
     name: "SearchStock",
     components: {
-
+        SortedTable,
+        SortLink
     },
     data: function () {
         return {
             technical_analysis: [],
-            candlestick: [],
+            candlestick_pattern: [],
             feedback: "",
+            datas: [],
+            searched: false
         };
     },
     methods: {
         search() {
             this.feedback = ""
+            this.searched = true
+            console.log(this.candlestick_pattern)
+            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/filter_stock.php', {
+                    technical_analysis: JSON.stringify(this.technical_analysis),
+                    candlestick_pattern: JSON.stringify(this.candlestick_pattern)
+                })
+                .then(response => {
+                    this.datas = response.data
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
         },
-        changeType() {
-            switch (this.code_name) {
-                case 'code':
-                    if (this.Language == 'cn') {
-                        this.input_type = "代号"
-                    }
-                    if (this.Language == 'en') {
-                        this.input_type = "Code"
-                    }
-                    break;
-                case 'name':
-                    if (this.Language == 'cn') {
-                        this.input_type = "名字"
-                    }
-                    if (this.Language == 'en') {
-                        this.input_type = "Name"
-                    }
-                    break;
-            }
-        }
+        add_watchlist(stockid) {
+            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
+                    email: this.UserEmail,
+                    stockid: stockid,
+                    action: 'add'
+                })
+                .then(response => {
+                    alert(response.data)
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
     },
     created() {
-        this.changeType()
+
     },
     computed: {
         UserEmail() {

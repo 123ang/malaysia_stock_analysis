@@ -5,6 +5,7 @@ import Home from '@/views/Home'
 import ProfitCalculator from '@/views/ProfitCalculator'
 import SearchStock from '@/views/SearchStock'
 import TodayStock from '@/views/TodayStock'
+import Watchlist from '@/views/Watchlist'
 import Login from '@/views/Login'
 
 Vue.use(VueRouter)
@@ -14,6 +15,14 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/my-watchlist',
+    name: 'Watchlist',
+    component: Watchlist,
     meta: {
       requiresAuth: true
     }

@@ -22,6 +22,13 @@
             </label>
             <input type="text" v-model="buy_price">
         </div>
+        <div class="field buy_price">
+            <label for="buy_price">
+                <span v-if="Language == 'en'">Buy Lot </span>
+                <span v-if="Language == 'cn'">买的数量（Lot）</span>
+            </label>
+            <input type="text" v-model="lot">
+        </div>
         <div class="field transaction_fee">
             <label for="transaction_fee">
                 <span v-if="Language == 'en'">Transaction Fee (RM)</span>
@@ -64,7 +71,7 @@
                     {{ buy_price }}
                 </td>
             </tr>
-                        <tr>
+            <tr>
                 <td>
                     <span v-if="Language == 'en'">Used Budget (RM)</span>
                     <span v-if="Language == 'cn'">用到的预算(RM)</span>
@@ -130,11 +137,17 @@ export default {
             this.feedback = ""
             this.volume = (parseFloat(this.budget) - parseFloat(this.transaction_fee)) / parseFloat(this.buy_price)
             this.volume = Math.floor(this.volume)
+            if (this.lot == "") {
+                this.lot = Math.floor(this.volume / 100)
+                this.unit = this.lot * 100
+                this.sell_price = Math.ceil(((parseFloat(this.budget) + parseFloat(this.margin_profit) + parseFloat(this.transaction_fee)) / this.volume) * 100) / 100
+                this.profit = ((this.sell_price * this.unit) - (this.buy_price * this.unit) - this.transaction_fee).toFixed(2)
+            } else {
+                this.unit = this.lot * 100
+                this.sell_price = Math.ceil(((parseFloat(this.buy_price * this.unit) + parseFloat(this.margin_profit) + parseFloat(this.transaction_fee)) / this.unit) * 100) / 100
+                this.profit = ((this.sell_price * this.unit) - (this.buy_price * this.unit) - this.transaction_fee).toFixed(2)
+            }
 
-            this.lot = Math.floor(this.volume / 100)
-            this.unit = this.lot * 100
-            this.sell_price = Math.ceil(((parseFloat(this.budget) + parseFloat(this.margin_profit) + parseFloat(this.transaction_fee)) / this.volume) * 100) / 100
-            this.profit = ((this.sell_price * this.unit) - (this.buy_price * this.unit) - this.transaction_fee).toFixed(2)
         }
     },
     created() {

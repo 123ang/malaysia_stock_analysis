@@ -114,8 +114,8 @@
     <tbody>
       <tr v-for="(value, index) in sort.values"
               :key="index">
-        <td>{{ value.code }}</td>
-        <td>{{ value.name }}</td>
+        <td>{{ value.stock_code }}</td>
+        <td>{{ value.stock_name }}</td>
         <td>{{ value.trade_record_date}}</td>
          <td>{{ value.open_price }}</td>
         <td>{{ value.close_price }}</td>
