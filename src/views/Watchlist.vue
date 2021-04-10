@@ -73,11 +73,11 @@
                         <td>{{ value.stock_code }}</td>
                         <td>{{ value.stock_name }}</td>
                         <td>{{ value.trade_record_date}}</td>
-                        <td>{{ value.open_price }}</td>
-                        <td>{{ value.close_price }}</td>
-                        <td>{{ value.high }}</td>
-                        <td>{{ value.low }}</td>
-                        <td>{{ value.volume }}</td>
+                        <td>{{ parseFloat(value.open_price) }}</td>
+                        <td>{{ parseFloat(value.close_price) }}</td>
+                        <td>{{ parseFloat(value.high) }}</td>
+                        <td>{{ parseFloat(value.low) }}</td>
+                        <td>{{ parseFloat(value.volume) }}</td>
                         <td>{{ value.candlestick_signal }}</td>
                          <td><input type='text' v-model='value.remark'></td>
                         <td>
@@ -113,7 +113,7 @@ export default {
     methods: {
         watchlist_stocks() {
             this.datas = []
-            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
+            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
                     email: this.UserEmail,
                     action: 'show'
                 })
@@ -127,7 +127,7 @@ export default {
                 });
         },
         update(stockid,remark) {
-            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
+            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
                     email: this.UserEmail,
                     stockid: stockid,
                     remark: remark,
@@ -142,7 +142,7 @@ export default {
                 });
         },
         remove(stockid) {
-            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
+            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
                     email: this.UserEmail,
                     stockid: stockid,
                     action: 'remove'

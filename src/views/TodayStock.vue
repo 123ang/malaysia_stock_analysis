@@ -33,6 +33,7 @@
             <v-checkbox v-model="candlestick_pattern" label="Piercing Line" value="piercing_line"></v-checkbox>
             <v-checkbox v-model="candlestick_pattern" label="Morning Star" value="morning_star"></v-checkbox>
             <v-checkbox v-model="candlestick_pattern" label="Three White Soldiers" value="three_white_soldiers"></v-checkbox>
+            <v-checkbox v-model="candlestick_pattern" label="Three Black Soldiers" value="three_black_soldiers"></v-checkbox>
         </div>
         <div style="text-align:center">
             <p v-if="feedback" class="red-text">{{ feedback }}</p>
@@ -148,12 +149,19 @@ export default {
             this.feedback = ""
             this.searched = true
             console.log(this.candlestick_pattern)
-            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/filter_stock.php', {
+            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/filter_stock.php', {
                     technical_analysis: JSON.stringify(this.technical_analysis),
                     candlestick_pattern: JSON.stringify(this.candlestick_pattern)
                 })
                 .then(response => {
                     this.datas = response.data
+                    this.datas.forEach(function (data) {
+                        data.open_price = parseFloat(data.open_price)
+                        data.close_price = parseFloat(data.close_price)
+                        data.high = parseFloat(data.high)
+                        data.low = parseFloat(data.low)
+                        data.volume = parseFloat(data.volume)
+                    });
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -161,7 +169,7 @@ export default {
 
         },
         add_watchlist(stockid) {
-            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
+            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
                     email: this.UserEmail,
                     stockid: stockid,
                     action: 'add'

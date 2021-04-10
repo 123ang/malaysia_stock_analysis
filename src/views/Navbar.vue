@@ -31,6 +31,9 @@
                                     <v-list-item-title @click="profit_calculator">Profit Calculator</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item v-if="isLoggedIn">
+                                    <v-list-item-title @click="accurate_calculator">Calculator With Transaction Fee</v-list-item-title>
+                                </v-list-item>
+                                <v-list-item v-if="isLoggedIn">
                                     <v-list-item-title @click="logout">Logout</v-list-item-title>
                                 </v-list-item>
                             </v-list-item-group>
@@ -109,6 +112,9 @@ export default {
         },
         my_profile() {
             this.$router.push("/my-profile");
+        },
+        accurate_calculator() {
+            this.$router.push("/more-accurate-calculator");
         }
 
     },

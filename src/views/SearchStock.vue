@@ -108,11 +108,11 @@
                         <td>{{ value.stock_code }}</td>
                         <td>{{ value.stock_name }}</td>
                         <td>{{ value.trade_record_date}}</td>
-                        <td>{{ value.open_price }}</td>
-                        <td>{{ value.close_price }}</td>
-                        <td>{{ value.high }}</td>
-                        <td>{{ value.low }}</td>
-                        <td>{{ value.volume }}</td>
+                        <td>{{ parseFloat(value.open_price) }}</td>
+                        <td>{{ parseFloat(value.close_price) }}</td>
+                        <td>{{ parseFloat(value.high) }}</td>
+                        <td>{{ parseFloat(value.low) }}</td>
+                        <td>{{ parseFloat(value.volume) }}</td>
                         <td>{{ value.candlestick_signal }}</td>
                         <td>
                             <v-btn @click="add_watchlist(value.stock_ID)">
@@ -152,12 +152,19 @@ export default {
             this.searched = true
            // console.log(this.code_name)
            // console.log(this.input_field)
-            axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/search_stock.php', {
+            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/search_stock.php', {
                     code_name: this.code_name,
                     value: this.input_field
                 })
                 .then(response => {
                     this.datas = response.data
+                     this.datas.forEach(function (data) {
+                        data.open_price = parseFloat(data.open_price) 
+                        data.close_price = parseFloat(data.close_price) 
+                        data.high = parseFloat(data.high) 
+                        data.low = parseFloat(data.low) 
+                        data.volume = parseFloat(data.volume) 
+                    });
                     //console.log(this.datas)
 
                 })
@@ -166,7 +173,7 @@ export default {
                 });
         },
         add_watchlist(stockid) {
-             axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
+             axios.post('https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php', {
                     email: this.UserEmail,
                     stockid: stockid,
                     action: 'add'

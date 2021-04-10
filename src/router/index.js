@@ -7,6 +7,7 @@ import SearchStock from '@/views/SearchStock'
 import TodayStock from '@/views/TodayStock'
 import Watchlist from '@/views/Watchlist'
 import Login from '@/views/Login'
+import AccurateCalculator from '@/views/AccurateCalculator'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,14 @@ const routes = [
     path: '/my-watchlist',
     name: 'Watchlist',
     component: Watchlist,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/more-accurate-calculator',
+    name: 'AccurateCalculator',
+    component: AccurateCalculator,
     meta: {
       requiresAuth: true
     }

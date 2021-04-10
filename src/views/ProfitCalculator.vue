@@ -22,8 +22,8 @@
             </label>
             <input type="text" v-model="buy_price">
         </div>
-        <div class="field buy_price">
-            <label for="buy_price">
+        <div class="field lot">
+            <label for="lot">
                 <span v-if="Language == 'en'">Buy Lot </span>
                 <span v-if="Language == 'cn'">买的数量（Lot）</span>
             </label>

@@ -59,16 +59,13 @@ export default {
           
         return;
       }
-      axios.post('https://www.stocks-my.unihash-ecosystem.com/php_script/Login.php', {
+      axios.post('https://stocks-my.unihash-ecosystem.com/php_script/Login.php', {
         email: email
       })
       .then(response => {
         console.log(response.data);
         if(response.data.length == 0) {
-          
-
             this.feedback = "Email does not Exist!"
-          
           return;
         }
         if(password == response.data.password) {
