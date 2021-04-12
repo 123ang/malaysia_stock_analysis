@@ -82,7 +82,7 @@
               <td>{{ parseFloat(value.low) }}</td>
               <td>{{ parseFloat(value.volume) }}</td>
               <td>{{ value.candlestick_signal }}</td>
-              <td><input type="text" v-model="value.remark" /></td>
+              <td><input class="text-white" type="text" v-model="value.remark" /></td>
               <td>
                 <v-btn
                   color="blue"
@@ -199,5 +199,9 @@ export default {
 <style>
 select {
   display: block !important;
+}
+.text-white {
+ 
+  color: white;
 }
 </style>
