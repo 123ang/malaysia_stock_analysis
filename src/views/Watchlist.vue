@@ -8,7 +8,7 @@
     </div>
 
     <br />
-    <div class="container">
+    <div class="container" style="background-color:black">
       <sorted-table
         :values="datas"
         ascIcon="<span> ▲</span>"
@@ -123,7 +123,7 @@ export default {
       } else if (close - open < 0) {
         return "red--text";
       } else {
-        return "black--text";
+        return "white--text";
       }
     },
     watchlist_stocks() {
