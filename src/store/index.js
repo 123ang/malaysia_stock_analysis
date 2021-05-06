@@ -11,7 +11,9 @@ const store = new Vuex.Store({
     isLoggedIn: false,
     Email: false,
     language: "",
-    
+    StockCode: "",
+    TradeRecord: "",
+
   },
   getters: {
     
@@ -26,6 +28,12 @@ const store = new Vuex.Store({
     },
     language(state,data) {
       state.language = data
+    },
+    StockCode(state,data) {
+      state.StockCode = data
+    },
+    TradeRecord(state,data) {
+      state.TradeRecord = data
     },
    
   },

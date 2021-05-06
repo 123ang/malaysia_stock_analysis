@@ -16,8 +16,15 @@
                                     <v-list-item-title @click="login">Login</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item v-if="isLoggedIn">
+                                    <v-list-item-title @click="home">Home</v-list-item-title>
+                                </v-list-item>
+                                <v-list-item v-if="isLoggedIn">
                                     <v-list-item-title @click="today_stock">Today Stocks Suggestion</v-list-item-title>
                                 </v-list-item>
+                                <v-list-item v-if="isLoggedIn">
+                                    <v-list-item-title @click="index">Index</v-list-item-title>
+                                </v-list-item>
+
                                 <v-list-item v-if="isLoggedIn">
                                     <v-list-item-title @click="search_stock">Search A Stock</v-list-item-title>
                                 </v-list-item>
@@ -32,6 +39,9 @@
                                 </v-list-item>
                                 <v-list-item v-if="isLoggedIn">
                                     <v-list-item-title @click="accurate_calculator">Calculator With Transaction Fee</v-list-item-title>
+                                </v-list-item>
+                                <v-list-item v-if="isLoggedIn">
+                                    <v-list-item-title @click="stock_trading_recording">Stock Trading Recording</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item v-if="isLoggedIn">
                                     <v-list-item-title @click="logout">Logout</v-list-item-title>
@@ -89,8 +99,11 @@ export default {
         closeNav() {
             this.drawer = false;
         },
-        register() {
-
+        index() {
+            this.$router.push("/index");
+        },
+        stock_trading_recording() {
+            this.$router.push("/stock-trade-record");
         },
         login() {
             this.$router.push("/login");
