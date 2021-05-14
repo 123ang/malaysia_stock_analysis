@@ -14,6 +14,7 @@ import stock_trade_record from '@/views/stock_trade_record'
 import index from '@/views/Index'
 import update_stock_record from '@/views/update_stock_record'
 import stock_detail from '@/views/stock_detail'
+import ShowGraph from '@/views/ShowGraph'
 Vue.use(VueRouter)
 
 const routes = [
@@ -103,6 +104,14 @@ const routes = [
     component: SearchStock,
     meta: {
       requiresAuth: true
+    }
+  },
+  {
+    path: '/ShowGraph',
+    name:'ShowGraph',
+    component : ShowGraph,
+    meta:{
+      requiresAuth:true
     }
   },
   {
