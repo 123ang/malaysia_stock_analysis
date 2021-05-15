@@ -14,7 +14,7 @@ import stock_trade_record from '@/views/stock_trade_record'
 import index from '@/views/Index'
 import update_stock_record from '@/views/update_stock_record'
 import stock_detail from '@/views/stock_detail'
-import ShowGraph from '@/views/ShowGraph'
+import PassData from '@/views/PassData'
 
 Vue.use(VueRouter)
 
@@ -108,9 +108,9 @@ const routes = [
     }
   },
   {
-    path: '/ShowGraph',
-    name:'ShowGraph',
-    component : ShowGraph,
+    path: '/PassData',
+    name:'PassData',
+    component : PassData,
     meta:{
       requiresAuth:true
     }
