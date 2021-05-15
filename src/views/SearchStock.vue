@@ -129,13 +129,13 @@
 import axios from "axios";
 import { SortedTable, SortLink } from "vue-sorted-table";
 import store from "../store";
-import Showgraph from "../ShowGraph";
+
 export default {
     name: "SearchStock",
     components: {
         SortedTable,
         SortLink,
-        Showgraph
+  
     },
     data: function () {
         return {

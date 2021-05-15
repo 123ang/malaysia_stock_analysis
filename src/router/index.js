@@ -15,6 +15,7 @@ import index from '@/views/Index'
 import update_stock_record from '@/views/update_stock_record'
 import stock_detail from '@/views/stock_detail'
 import ShowGraph from '@/views/ShowGraph'
+
 Vue.use(VueRouter)
 
 const routes = [

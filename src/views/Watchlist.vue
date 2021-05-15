@@ -58,7 +58,8 @@
                             <span> Candlestick Signal</span>
                         </sort-link>
                     </th>
-                    <th>Remark</th>
+                    <th style="color:white">Remark</th>
+                    <th style="color:white" v-if="UserEmail == 'admin@gmail.com'">Target Sell Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -74,15 +75,17 @@
                         <td>{{ parseFloat(value.low) }}</td>
                         <td>{{ parseFloat(value.volume) }}</td>
                         <td>{{ value.candlestick_signal }}</td>
+
                         <td><input class="text-white" type="text" v-model="value.remark" /></td>
+                        <td v-if="UserEmail == 'admin@gmail.com'"><input class="text-white" type="text" v-model="value.target_sell_price" /></td>
                         <td>
-                            <v-btn color="blue"  style="margin-right:5px" dark @click="update(value.stock_ID, value.remark)">
-                                Update Remark
+                            <v-btn color="blue" style="margin-right:5px" dark @click="update(value.stock_ID,index)">
+                                Update
                             </v-btn>
-                            <v-btn color="pink"  style="margin-right:5px" dark @click="remove(value.stock_ID)">
+                            <v-btn color="pink" style="margin-right:5px" dark @click="remove(value.stock_ID)">
                                 Remove
                             </v-btn>
-                            <v-btn color="green"  style="margin-right:5px" dark @click="go_detail(value.stock_code)">Details </v-btn>
+                            <v-btn color="green" style="margin-right:5px" dark @click="go_detail(value.stock_code)">Details </v-btn>
                         </td>
                     </tr>
                 </tbody>
@@ -116,14 +119,14 @@ export default {
             } else {
                 return "white--text";
             }
-            
+
         },
         go_detail(StockCode) {
 
-                store.commit("StockCode", StockCode)
+            store.commit("StockCode", StockCode)
 
-                this.$router.push("/stock-detail");
-            },
+            this.$router.push("/stock-detail");
+        },
         watchlist_stocks() {
             this.datas = [];
             axios.post(
@@ -140,14 +143,17 @@ export default {
                     console.log(error);
                 });
         },
-        update(stockid, remark) {
+        update(stockid, index) {
+            var remark = this.datas[index].remark
+            var target_sell_price = this.datas[index].target_sell_price
             axios
                 .post(
                     "https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php", {
                         email: this.UserEmail,
                         stockid: stockid,
                         remark: remark,
-                        action: "update_remark",
+                        target_sell_price: target_sell_price,
+                        action: "update_remark"
                     }
                 )
                 .then((response) => {
