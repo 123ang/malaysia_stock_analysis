@@ -120,9 +120,11 @@
         </v-btn>
     </div>
     <br>
-    <PastData ref="PastData">
+    <button @click ="showDiagram">1 month</button>
+    <button @click ="showDiagram1">2 month</button>
+    <PastData  ref="PastData" :showSelect="0">
     </PastData>
-    <button @click ="showDiagram">123</button>
+    
 </div>
 </template>
 
@@ -153,6 +155,13 @@ export default {
             
             return date30;
             },
+         currentDateTime60() {
+            const current = new Date();
+            const date30 = current.getFullYear()+'-'+(current.getMonth()-1)+'-'+current.getDate();
+            //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            
+            return date30;
+            },
          currentDateTime() {
             const current = new Date();
             const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
@@ -162,6 +171,9 @@ export default {
             },
         showDiagram(){
           this.$refs.PastData.Searchform(this.datas[0].code,this.currentDateTime30(),this.currentDateTime());
+        },
+         showDiagram1(){
+          this.$refs.PastData.Searchform(this.datas[0].code,this.currentDateTime60(),this.currentDateTime());
         },
         result() {
             var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
@@ -186,7 +198,7 @@ export default {
 
     },
     created() {
-       
+      
         console.log(this.StockCode)
         this.result()
     },
@@ -198,7 +210,7 @@ export default {
             return this.$store.state.StockCode;
         }
     },
-     mounted(){
+     updated  (){
         this.showDiagram();
     }
 }

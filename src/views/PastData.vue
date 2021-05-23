@@ -1,7 +1,7 @@
 <template>
 <div>
-    <h2 class="center-align indigo-text">Stock Past Data</h2>
-    <div class="container z-depth-1">
+    <h2 v-show="showSelect" class="center-align indigo-text">Stock Past Data</h2>
+    <div v-show="showSelect" class="container z-depth-1">
         <div class="field stock_code">
             <label for="stock_code">Stock Code: </label>
             <input id="stock_code" v-model="stock_code" />
@@ -72,6 +72,10 @@ export default {
     components: {
         'apexchart': VueApexCharts
     },
+    props: {showSelect:{
+        type:String,
+        default:"1"
+    }},
     data() {
         return {
             options: "",
@@ -89,7 +93,7 @@ export default {
             base: "",
             base_type: "",
             seriesBar: [],
-            chartOptionsBar: {},
+            chartOptionsBar: {}
         }
     },
     methods: {
@@ -102,9 +106,7 @@ export default {
 
         },
         Search() {
-            console.log(this.stock_code);
-             console.log(this.start_date);
-              console.log(this.end_date);
+            
             axios.post('https://stocks-my.unihash-ecosystem.com/php_script/get_candle_stick_volume.php', {
                     stock_code: this.stock_code,
                     start_date: this.start_date,
@@ -123,9 +125,7 @@ export default {
 
         },
          Searchform(code,startDate,EndDate) {
-            console.log(code);
-             console.log(startDate);
-              console.log(EndDate);
+           
             axios.post('https://stocks-my.unihash-ecosystem.com/php_script/get_candle_stick_volume.php', {
                     stock_code: code,
                     start_date: startDate,
