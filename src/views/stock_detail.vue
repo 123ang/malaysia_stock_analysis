@@ -120,16 +120,19 @@
         </v-btn>
     </div>
     <br>
+    <PastData ref="PastData">
+    </PastData>
+    <button @click ="showDiagram">123</button>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-
+import PastData from './PastData.vue';
 export default {
     name: 'stock_detail',
     components: {
-
+        PastData
     },
     data() {
         return {
@@ -139,9 +142,27 @@ export default {
             end_date: null,
             dataprice: null,
             loaded: false,
+            
         }
     },
     methods: {
+        currentDateTime30() {
+            const current = new Date();
+            const date = current.getFullYear()+'/'+(current.getMonth()-1)+'/'+current.getDate();
+            //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            
+            return date;
+            },
+         currentDateTime() {
+            const current = new Date();
+            const date = current.getFullYear()+'/'+(current.getMonth())+'/'+current.getDate();
+            //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            
+            return date;
+            },
+        showDiagram(){
+          this.$refs.PastData.Searchform('0001',"22/5/2021","1/4/2021");
+        },
         result() {
             var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
             var script_name = 'stock_detail.php'
