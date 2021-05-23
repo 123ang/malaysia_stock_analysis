@@ -120,6 +120,26 @@ export default {
                 });
 
         },
+         Searchform(code,startDate,EndDate) {
+
+            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/get_candle_stick_volume.php', {
+                    stock_code: code,
+                    start_date: startDate,
+                    end_date: EndDate,
+
+                })
+                .then(response => {
+                    this.datas = response.data;
+                    this.generate_graph()
+                })
+                .catch(function (error) {
+                    
+                    console.log(JSON.stringify(error));
+                    console.log("error response :" + error.response)
+                    console.log("error status :" + error.status)
+                });
+
+        },
         generate_graph() {
 
             var full_array = []
