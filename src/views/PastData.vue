@@ -102,7 +102,9 @@ export default {
 
         },
         Search() {
-
+            console.log(this.stock_code);
+             console.log(this.start_date);
+              console.log(this.end_date);
             axios.post('https://stocks-my.unihash-ecosystem.com/php_script/get_candle_stick_volume.php', {
                     stock_code: this.stock_code,
                     start_date: this.start_date,
@@ -121,7 +123,9 @@ export default {
 
         },
          Searchform(code,startDate,EndDate) {
-
+            console.log(code);
+             console.log(startDate);
+              console.log(EndDate);
             axios.post('https://stocks-my.unihash-ecosystem.com/php_script/get_candle_stick_volume.php', {
                     stock_code: code,
                     start_date: startDate,

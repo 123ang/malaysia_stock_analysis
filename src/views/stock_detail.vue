@@ -148,20 +148,20 @@ export default {
     methods: {
         currentDateTime30() {
             const current = new Date();
-            const date = current.getFullYear()+'/'+(current.getMonth()-1)+'/'+current.getDate();
+            const date30 = current.getFullYear()+'-'+(current.getMonth())+'-'+current.getDate();
             //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
             
-            return date;
+            return date30;
             },
          currentDateTime() {
             const current = new Date();
-            const date = current.getFullYear()+'/'+(current.getMonth())+'/'+current.getDate();
+            const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
             //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
             
             return date;
             },
         showDiagram(){
-          this.$refs.PastData.Searchform('0001',"22/5/2021","1/4/2021");
+          this.$refs.PastData.Searchform(this.datas[0].code,this.currentDateTime30(),this.currentDateTime());
         },
         result() {
             var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
@@ -186,6 +186,7 @@ export default {
 
     },
     created() {
+       
         console.log(this.StockCode)
         this.result()
     },
@@ -196,6 +197,9 @@ export default {
         StockCode() {
             return this.$store.state.StockCode;
         }
+    },
+     mounted(){
+        this.showDiagram();
     }
 }
 </script>
