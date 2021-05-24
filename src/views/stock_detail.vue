@@ -129,7 +129,7 @@
                 <v-btn @click="showDiagram1">2 month</v-btn>
             </v-col>
         </v-row>
-        <PastData ref="PastData" :showSelect="0">
+        <PastData ref="PastData" :showSelect="0" >
         </PastData>
     </div>
 
