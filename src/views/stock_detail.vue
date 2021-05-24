@@ -79,7 +79,7 @@
             </tr>
         </v-simple-table>
         <br>
-        <v-simple-table >
+        <v-simple-table>
             <tr>
                 <th style="border: 1px solid black !important;border-collapse: collapse;">Moving Average 20 days</th>
                 <th style="border: 1px solid black !important;border-collapse: collapse;">Bolinger Band upper limit</th>
@@ -120,11 +120,19 @@
         </v-btn>
     </div>
     <br>
-    <button @click ="showDiagram">1 month</button>
-    <button @click ="showDiagram1">2 month</button>
-    <PastData  ref="PastData" :showSelect="0">
-    </PastData>
-    
+    <div class="container" style="text-align:center">
+        <v-row>
+            <v-col>
+                <v-btn @click="showDiagram">1 month</v-btn>
+            </v-col>
+            <v-col>
+                <v-btn @click="showDiagram1">2 month</v-btn>
+            </v-col>
+        </v-row>
+        <PastData ref="PastData" :showSelect="0">
+        </PastData>
+    </div>
+
 </div>
 </template>
 
@@ -144,36 +152,33 @@ export default {
             end_date: null,
             dataprice: null,
             loaded: false,
-            
+
         }
     },
     methods: {
         currentDateTime30() {
-            const current = new Date();
-            const date30 = current.getFullYear()+'-'+(current.getMonth())+'-'+current.getDate();
-            //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-            
+            var current = new Date();
+            var date30 = current.getFullYear() + '-' + (current.getMonth()) + '-' + current.getDate();
+
             return date30;
-            },
-         currentDateTime60() {
-            const current = new Date();
-            const date30 = current.getFullYear()+'-'+(current.getMonth()-1)+'-'+current.getDate();
-            //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-            
-            return date30;
-            },
-         currentDateTime() {
-            const current = new Date();
-            const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
-            //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-            
-            return date;
-            },
-        showDiagram(){
-          this.$refs.PastData.Searchform(this.datas[0].code,this.currentDateTime30(),this.currentDateTime());
         },
-         showDiagram1(){
-          this.$refs.PastData.Searchform(this.datas[0].code,this.currentDateTime60(),this.currentDateTime());
+        currentDateTime60() {
+            var current = new Date();
+            var date30 = current.getFullYear() + '-' + (current.getMonth() - 1) + '-' + current.getDate();
+
+            return date30;
+        },
+        currentDateTime() {
+            var current = new Date();
+            var date = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+
+            return date;
+        },
+        showDiagram() {
+            this.$refs.PastData.Searchform(this.datas[0].code, this.currentDateTime30(), this.currentDateTime());
+        },
+        showDiagram1() {
+            this.$refs.PastData.Searchform(this.datas[0].code, this.currentDateTime60(), this.currentDateTime());
         },
         result() {
             var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
@@ -198,8 +203,8 @@ export default {
 
     },
     created() {
-      
-        console.log(this.StockCode)
+
+       
         this.result()
     },
     computed: {
@@ -210,7 +215,7 @@ export default {
             return this.$store.state.StockCode;
         }
     },
-     updated  (){
+    updated() {
         this.showDiagram();
     }
 }

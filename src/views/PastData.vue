@@ -281,13 +281,16 @@ export default {
     },
 
     created() {
-
+        this.stock_code = this.StockCode
     },
 
     computed: {
         UserEmail() {
             return this.$store.state.Email;
         },
+        StockCode() {
+            return this.$store.state.StockCode;
+        }
 
     }
 }

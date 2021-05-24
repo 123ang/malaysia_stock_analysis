@@ -275,4 +275,15 @@ th,
 td {
     border-bottom: 0.5px white solid !important;
 }
+
+table {
+    position: relative;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background-color:white;
+    color:black;
+}
 </style>
