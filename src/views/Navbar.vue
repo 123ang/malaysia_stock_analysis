@@ -10,35 +10,35 @@
                         <v-list nav dense>
                             <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
  
-                                <v-list-item v-if="!isLoggedIn">
-                                    <v-list-item-title @click="login">Login</v-list-item-title>
+                                <v-list-item v-if="!isLoggedIn" @click="login">
+                                    <v-list-item-title >Login</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn">
-                                    <v-list-item-title @click="home">Home</v-list-item-title>
+                                <v-list-item v-if="isLoggedIn" :to="'/'">
+                                    <v-list-item-title >Home</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn">
-                                    <v-list-item-title @click="today_stock">Today Stocks Suggestion</v-list-item-title>
+                                <v-list-item v-if="isLoggedIn" :to="'/today-stock'">
+                                    <v-list-item-title >Today Stocks Suggestion</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item v-if="isLoggedIn">
                                     <v-list-item-title @click="index">Index</v-list-item-title>
                                 </v-list-item>
 
-                                <v-list-item v-if="isLoggedIn">
-                                    <v-list-item-title @click="search_stock">Search A Stock</v-list-item-title>
+                                <v-list-item v-if="isLoggedIn" :to="'/search-stock'">
+                                    <v-list-item-title>Search A Stock</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn">
-                                    <v-list-item-title @click="my_watchlist">My Watchlist</v-list-item-title>
+                                <v-list-item v-if="isLoggedIn" :to="'/my-watchlist'"> 
+                                    <v-list-item-title>My Watchlist</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn">
-                                    <v-list-item-title @click="stock_past_data">Stock Past Data</v-list-item-title>
+                                <v-list-item v-if="isLoggedIn" :to="'/stock-past-data'">
+                                    <v-list-item-title >Stock Past Data</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn">
-                                    <v-list-item-title @click="profit_calculator">Profit Calculator</v-list-item-title>
+                                <v-list-item v-if="isLoggedIn" :to="'/profit-calculator'">
+                                    <v-list-item-title>Profit Calculator</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn">
-                                    <v-list-item-title @click="accurate_calculator">Calculator With Transaction Fee</v-list-item-title>
+                                <v-list-item v-if="isLoggedIn" :to="'/more-accurate-calculator'">
+                                    <v-list-item-title>Calculator With Transaction Fee</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn">
+                                <v-list-item v-if="isLoggedIn" :to="'/stock-trade-record'">
                                     <v-list-item-title @click="stock_trading_recording">Stock Trading Recording</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item v-if="isLoggedIn">
@@ -71,6 +71,7 @@ export default {
             search: null,
             drawer: false,
             group: null,
+            click: 0
         };
     },
     watch: {
