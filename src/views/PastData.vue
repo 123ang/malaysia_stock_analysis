@@ -106,8 +106,8 @@ export default {
 
         },
         Search() {
-            
-            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/get_candle_stick_volume.php', {
+            let url = this.WebUrl + "php_script/" + "get_candle_stick_volume.php"
+            axios.post(url, {
                     stock_code: this.stock_code,
                     start_date: this.start_date,
                     end_date: this.end_date,
@@ -116,6 +116,7 @@ export default {
                 .then(response => {
                     this.datas = response.data;
                     this.generate_graph()
+                    console.log(response.data)
                 })
                 .catch(function (error) {
                     console.log(JSON.stringify(error));
@@ -125,8 +126,8 @@ export default {
 
         },
          Searchform(code,startDate,EndDate) {
-           
-            axios.post('https://stocks-my.unihash-ecosystem.com/php_script/get_candle_stick_volume.php', {
+            let url = this.WebUrl + "php_script/" + "get_candle_stick_volume.php" 
+            axios.post(url, {
                     stock_code: code,
                     start_date: startDate,
                     end_date: EndDate,
@@ -290,8 +291,10 @@ export default {
         },
         StockCode() {
             return this.$store.state.StockCode;
-        }
-
+        },
+        WebUrl(){
+            return this.$store.state.web_url;
+        },
     }
 }
 </script>

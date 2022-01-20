@@ -118,7 +118,7 @@ export default {
                 if (this.share != '') {
                     this.show = true;
 
-                    var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
+                    var domain = this.WebUrl + 'php_script/'
                     var script_name = 'add_account.php'
                     var web = domain + script_name
                     axios.post(web, {
@@ -157,6 +157,9 @@ export default {
         Language() {
             return this.$store.state.language;
         },
+        WebUrl(){
+            return this.$store.state.web_url;
+        }
     }
 
 };

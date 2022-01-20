@@ -129,8 +129,9 @@ export default {
         },
         watchlist_stocks() {
             this.datas = [];
+            let url = this.WebUrl + "php_script/" + "watchlist.php"
             axios.post(
-                    "https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php", {
+                    url, {
                         email: this.UserEmail,
                         action: "show",
                     }
@@ -146,9 +147,10 @@ export default {
         update(stockid, index) {
             var remark = this.datas[index].remark
             var target_sell_price = this.datas[index].target_sell_price
+            let url = this.WebUrl + "php_script/" + "watchlist.php"
             axios
                 .post(
-                    "https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php", {
+                    url, {
                         email: this.UserEmail,
                         stockid: stockid,
                         remark: remark,
@@ -165,9 +167,10 @@ export default {
                 });
         },
         remove(stockid) {
+            let url = this.WebUrl + "php_script/" + "watchlist.php"
             axios
                 .post(
-                    "https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php", {
+                    url, {
                         email: this.UserEmail,
                         stockid: stockid,
                         action: "remove",
@@ -192,6 +195,9 @@ export default {
         Language() {
             return this.$store.state.language;
         },
+        WebUrl(){
+            return this.$store.state.web_url;
+        }
     },
 };
 </script>

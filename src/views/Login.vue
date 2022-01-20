@@ -59,7 +59,8 @@ export default {
           
         return;
       }
-      axios.post('https://stocks-my.unihash-ecosystem.com/php_script/Login.php', {
+      let url = this.WebUrl + "php_script/" + "Login.php"
+      axios.post(url, {
         email: email
       })
       .then(response => {
@@ -94,8 +95,13 @@ export default {
         
   
   },
+  created(){
+    console.log(this.WebUrl)
+  },
   computed: {
-   
+    WebUrl(){
+      return this.$store.state.web_url;
+    },
     Status() {
       return this.$store.state.status;
     }

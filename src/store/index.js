@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     language: "",
     StockCode: "",
     TradeRecord: "",
+    web_url: "https://analysisbursa.com/",
 
   },
   getters: {
@@ -34,6 +35,9 @@ const store = new Vuex.Store({
     },
     TradeRecord(state,data) {
       state.TradeRecord = data
+    },
+    WebUrl(state,web_url) {
+      state.web_url = web_url
     },
    
   },

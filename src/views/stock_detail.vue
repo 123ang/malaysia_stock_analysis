@@ -129,7 +129,7 @@
                 <v-btn @click="showDiagram1">2 month</v-btn>
             </v-col>
         </v-row>
-        <PastData ref="PastData" :showSelect="0" >
+        <PastData ref="PastData" :showSelect="'0'" >
         </PastData>
     </div>
 
@@ -158,15 +158,35 @@ export default {
     methods: {
         currentDateTime30() {
             var current = new Date();
-            var date30 = current.getFullYear() + '-' + (current.getMonth()) + '-' + current.getDate();
+            var currentMonth = current.getMonth()
+            var prevMonth = parseInt(currentMonth)
+            var prevYear = current.getFullYear()
+            
+            if( parseInt(prevMonth) == 0) {
+                prevMonth = 12
+                prevYear = current.getFullYear() - 1
+            }
+            prevMonth = ('0' + prevMonth).slice(-2)
+            var date30 = prevYear + '-' + (prevMonth) + '-' + current.getDate();
 
             return date30;
         },
         currentDateTime60() {
             var current = new Date();
-            var date30 = current.getFullYear() + '-' + (current.getMonth() - 1) + '-' + current.getDate();
+            var currentMonth = current.getMonth()
+            var prev2Month = parseInt(currentMonth)-1
+              var prevYear = current.getFullYear()
+            if( parseInt(prev2Month) == 0) {
+                prev2Month = 12
+                prevYear = current.getFullYear() - 1
+            }
+            if( parseInt(prev2Month) == -1) {
+                prev2Month = 11
+                prevYear = current.getFullYear() - 1
+            }
+            var date60 = prevYear  + '-' + (prev2Month) + '-' + current.getDate();
 
-            return date30;
+            return date60;
         },
         currentDateTime() {
             var current = new Date();
@@ -175,20 +195,30 @@ export default {
             return date;
         },
         showDiagram() {
-            this.$refs.PastData.Searchform(this.datas[0].code, this.currentDateTime30(), this.currentDateTime());
+            var stock_code = ""
+            if(this.datas.length >0) {
+                stock_code = this.datas[0].code
+            }
+            this.$refs.PastData.Searchform(stock_code, this.currentDateTime30(), this.currentDateTime());
         },
         showDiagram1() {
-            this.$refs.PastData.Searchform(this.datas[0].code, this.currentDateTime60(), this.currentDateTime());
+            var stock_code = ""
+            console.log(this.datas.length)
+            if(this.datas.length >0) {
+                stock_code = this.datas[0].code
+            }
+            this.$refs.PastData.Searchform(stock_code, this.currentDateTime30(), this.currentDateTime());
         },
         result() {
-            var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
+            var domain = this.WebUrl + "php_script/" 
+   
             var script_name = 'stock_detail.php'
             var web = domain + script_name
             axios.post(web, {
                     stock_code: this.StockCode
                 })
                 .then(response => {
-                    console.log(response.data)
+                    
 
                     this.datas = response.data;
 
@@ -213,7 +243,11 @@ export default {
         },
         StockCode() {
             return this.$store.state.StockCode;
+        },
+        WebUrl(){
+            return this.$store.state.web_url;
         }
+
     },
     updated() {
         this.showDiagram();

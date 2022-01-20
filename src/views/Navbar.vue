@@ -9,9 +9,7 @@
                     <v-navigation-drawer v-model="drawer" temporary fixed left style="background-color: white" hide-overlay>
                         <v-list nav dense>
                             <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
-                                <v-list-item v-if="!isLoggedIn">
-                                    <v-list-item-title @click="register">Register</v-list-item-title>
-                                </v-list-item>
+ 
                                 <v-list-item v-if="!isLoggedIn">
                                     <v-list-item-title @click="login">Login</v-list-item-title>
                                 </v-list-item>

@@ -167,11 +167,10 @@ export default {
         search() {
             this.feedback = "";
             this.searched = true;
-            // console.log(this.code_name)
-            // console.log(this.input_field)
+            let url = this.WebUrl + "php_script/" + "search_stock.php"
             axios
                 .post(
-                    "https://stocks-my.unihash-ecosystem.com/php_script/search_stock.php", {
+                    url, {
                         code_name: this.code_name,
                         value: this.input_field,
                     }
@@ -192,9 +191,10 @@ export default {
                 });
         },
         add_watchlist(stockid) {
+            let url = this.WebUrl + "php_script/" + "watchlist.php"
             axios
                 .post(
-                    "https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php", {
+                    url, {
                         email: this.UserEmail,
                         stockid: stockid,
                         action: "add",
@@ -237,6 +237,9 @@ export default {
         },
         Language() {
             return this.$store.state.language;
+        },
+        WebUrl(){
+            return this.$store.state.web_url;
         },
     },
 };

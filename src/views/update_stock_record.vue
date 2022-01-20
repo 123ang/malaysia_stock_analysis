@@ -127,7 +127,7 @@ export default {
                 
                     this.show = true;
 
-                    var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
+                    var domain = this.WebUrl + "php_script/" 
                     var script_name = 'stock_trading_record.php'
                     var web = domain + script_name
                     axios.post(web, {
@@ -154,8 +154,7 @@ export default {
 
     },
     created() {
-  
-        var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
+        var domain = this.WebUrl + "php_script/" 
         var script_name = 'stock_trading_record.php'
         var web = domain + script_name
         axios.post(web, {
@@ -180,8 +179,11 @@ export default {
         Language() {
             return this.$store.state.language;
         },
-       TradeRecord() {
+        TradeRecord() {
             return this.$store.state.TradeRecord;
+        },
+        WebUrl(){
+            return this.$store.state.web_url;
         }
     }
 

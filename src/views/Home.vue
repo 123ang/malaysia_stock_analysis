@@ -117,7 +117,7 @@
                 <tbody>
                     <tr v-for="(value, index) in sort.values" :key="index" :class="textcolor(value.open_price, value.close_price)">
                         <td>{{ value.stock_code }}</td>
-                        <td>{{ value.stock_name }}</td>
+                        <td>{{ value.name }}</td>
                         <td>{{ value.trade_record_date }}</td>
                         <td>{{ value.open_price }}</td>
                         <td>{{ value.close_price }}</td>
@@ -179,9 +179,10 @@ export default {
             this.$router.push("/stock-detail");
         },
         add_watchlist(stockid) {
+            let url = this.WebUrl + "php_script/" + "watchlist.php"
             axios
                 .post(
-                    "https://stocks-my.unihash-ecosystem.com/php_script/watchlist.php", {
+                    url, {
                         email: this.UserEmail,
                         stockid: stockid,
                         action: "add",
@@ -196,13 +197,15 @@ export default {
         },
         search() {
             console.log(this.range[0])
+            let url = this.WebUrl + "php_script/" + "stock_result.php"
+            console.log(url)
             axios.post(
-                    "https://stocks-my.unihash-ecosystem.com/php_script/stock_result.php", {
+                    url, {
                         min_price: this.range[0],
                         max_price: this.range[1],
                         min_volume: this.volume_range[0],
                         max_volume: this.volume_range[1],
-                        sector: this.sector,
+                        //sector: this.sector,
                         trend: this.trend
                     }
                 )
@@ -225,7 +228,7 @@ export default {
 
         },
         get_sector() {
-            var domain = 'https://stocks-my.unihash-ecosystem.com/php_script/'
+            var domain = this.WebUrl + 'php_script/'
             var script_name = 'get_sector.php'
             var web = domain + script_name
             axios.post(web)
@@ -255,6 +258,9 @@ export default {
         Language() {
             return this.$store.state.language;
         },
+        WebUrl(){
+            return this.$store.state.web_url;
+        }
     },
 };
 </script>
