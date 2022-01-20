@@ -73,7 +73,7 @@ export default {
         'apexchart': VueApexCharts
     },
     props: {showSelect:{
-        type:String,
+        
         default:"1"
     }},
     data() {

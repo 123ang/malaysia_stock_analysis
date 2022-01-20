@@ -138,7 +138,7 @@ export default {
                 )
                 .then((response) => {
                     this.datas = response.data;
-                    console.log(this.datas);
+    
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -159,7 +159,8 @@ export default {
                     }
                 )
                 .then((response) => {
-                    alert(response.data);
+                    console.log(response.data);
+                    alert(response.data)
                     this.watchlist_stocks();
                 })
                 .catch(function (error) {

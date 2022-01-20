@@ -180,6 +180,7 @@ export default {
         },
         add_watchlist(stockid) {
             let url = this.WebUrl + "php_script/" + "watchlist.php"
+            
             axios
                 .post(
                     url, {

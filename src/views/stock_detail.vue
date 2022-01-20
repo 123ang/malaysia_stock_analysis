@@ -129,7 +129,7 @@
                 <v-btn @click="showDiagram1">2 month</v-btn>
             </v-col>
         </v-row>
-        <PastData ref="PastData" :showSelect="'0'" >
+        <PastData ref="PastData" :showSelect="0" >
         </PastData>
     </div>
 
@@ -185,7 +185,7 @@ export default {
                 prevYear = current.getFullYear() - 1
             }
             var date60 = prevYear  + '-' + (prev2Month) + '-' + current.getDate();
-
+            
             return date60;
         },
         currentDateTime() {
@@ -203,11 +203,11 @@ export default {
         },
         showDiagram1() {
             var stock_code = ""
-            console.log(this.datas.length)
+
             if(this.datas.length >0) {
                 stock_code = this.datas[0].code
             }
-            this.$refs.PastData.Searchform(stock_code, this.currentDateTime30(), this.currentDateTime());
+            this.$refs.PastData.Searchform(stock_code, this.currentDateTime60(), this.currentDateTime());
         },
         result() {
             var domain = this.WebUrl + "php_script/" 
