@@ -16,9 +16,6 @@
                                 <v-list-item v-if="isLoggedIn" :to="'/'">
                                     <v-list-item-title >Home</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item v-if="isLoggedIn" :to="'/today-stock'">
-                                    <v-list-item-title >Today Stocks Suggestion</v-list-item-title>
-                                </v-list-item>
                                 <v-list-item v-if="isLoggedIn">
                                     <v-list-item-title @click="index">Index</v-list-item-title>
                                 </v-list-item>

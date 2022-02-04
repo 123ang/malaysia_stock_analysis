@@ -56,6 +56,37 @@
             </select>
             <v-divider></v-divider>
         </div>
+        <div class="field technical_analysis">
+            <label for="technical_analysis">
+                <span v-if="Language == 'en'">Technical Analysis :</span>
+                <span v-if="Language == 'cn'">技术分析</span>
+            </label>
+
+            <v-checkbox v-model="technical_analysis" label="RSI < 30" value="rsi_under_30"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="RSI > 70" value="rsi_above_70"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="MACD Crossover Sell Signal" value="macd_sell_crossover"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="MACD Crossover Buy Signal" value="macd_buy_crossover"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="MACD Sell Signal" value="macd_sell"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="MACD Buy Signal" value="macd_buy"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="Below Bonlinger Band" value="below_bonlinger_band"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="Above Bonlinger Band" value="above_bonlinger_band"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="Current Price below Than MA 20" value="below_ma20"></v-checkbox>
+            <v-checkbox v-model="technical_analysis" label="Current Price Above MA 20" value="above_ma20"></v-checkbox>
+             <v-checkbox v-model="technical_analysis" label="Volume Buy Signal" value="volume_buy"></v-checkbox>
+        </div>
+        <div class="field input_field">
+            <label for="candlestick_pattern">
+                <span v-if="Language == 'en'">Candlestick Patterns:</span>
+                <span v-if="Language == 'cn'">烛台模式</span>
+            </label>
+            <v-checkbox v-model="candlestick_pattern" label="Hammer" value="hammer"></v-checkbox>
+            <v-checkbox v-model="candlestick_pattern" label="Inverse Hammer" value="inverse_hammer"></v-checkbox>
+            <v-checkbox v-model="candlestick_pattern" label="Bullish Engulfing" value="bullish_engulfing"></v-checkbox>
+            <v-checkbox v-model="candlestick_pattern" label="Piercing Line" value="piercing_line"></v-checkbox>
+            <v-checkbox v-model="candlestick_pattern" label="Morning Star" value="morning_star"></v-checkbox>
+            <v-checkbox v-model="candlestick_pattern" label="Three White Soldiers" value="three_white_soldiers"></v-checkbox>
+            <v-checkbox v-model="candlestick_pattern" label="Three Black Soldiers" value="three_black_soldiers"></v-checkbox>
+        </div>
         <div style="text-align: center">
             <p v-if="feedback" class="red-text">{{ feedback }}</p>
             <v-btn class="btn blue" dark @click="search">
@@ -110,7 +141,27 @@
                             <span> Volume</span>
                         </sort-link>
                     </th>
-                    <th style="color:white;"> Details </th>
+                    <th>
+                        <sort-link name="volume_signal">
+                            <span> Volume Signal</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="MACD_signal">
+                            <span> MACD signal</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="RSI_signal">
+                            <span> RSI signal</span>
+                        </sort-link>
+                    </th>
+                    <th>
+                        <sort-link name="ma_signal">
+                            <span> MA 20 signal</span>
+                        </sort-link>
+                    </th>
+                    <th style="color:black;"> Details </th>
                 </tr>
             </thead>
             <template #body="sort">
@@ -124,6 +175,10 @@
                         <td>{{ value.high }}</td>
                         <td>{{ value.low }}</td>
                         <td>{{ value.volume }}</td>
+                        <td>{{ value.volume_signal }}</td>
+                        <td>{{ value.macd_signal}}</td>
+                        <td>{{ value.rsi_signal }}</td>
+                        <td>{{ value.ma20_signal }}</td>
                         <td>
                             <v-btn dark color="blue" style="margin-right:5px" @click="add_watchlist(value.stock_ID)">
                                 Add to my watchlist
