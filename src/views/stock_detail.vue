@@ -126,7 +126,10 @@
                 <v-btn @click="showDiagram">1 month</v-btn>
             </v-col>
             <v-col>
-                <v-btn @click="showDiagram1">2 month</v-btn>
+                <v-btn @click="showDiagram1">3 month</v-btn>
+            </v-col>
+            <v-col>
+                <v-btn @click="showDiagram2">6 month</v-btn>
             </v-col>
         </v-row>
         <PastData ref="PastData" :showSelect="0" >
@@ -168,25 +171,36 @@ export default {
             }
             prevMonth = ('0' + prevMonth).slice(-2)
             var date30 = prevYear + '-' + (prevMonth) + '-' + current.getDate();
-
+            
             return date30;
         },
-        currentDateTime60() {
+        currentDateTime90() {
             var current = new Date();
             var currentMonth = current.getMonth()
-            var prev2Month = parseInt(currentMonth)-1
-              var prevYear = current.getFullYear()
-            if( parseInt(prev2Month) == 0) {
-                prev2Month = 12
-                prevYear = current.getFullYear() - 1
+            var prev2Month = parseInt(currentMonth)-2
+            var prevYear = current.getFullYear()
+             if (parseInt(prev2Month) <= 0) {
+                prevYear = current.getFullYear() - 1;
+                
+                prev2Month = 12 + prev2Month
             }
-            if( parseInt(prev2Month) == -1) {
-                prev2Month = 11
-                prevYear = current.getFullYear() - 1
-            }
-            var date60 = prevYear  + '-' + (prev2Month) + '-' + current.getDate();
             
-            return date60;
+            var date90 = prevYear  + '-' + (prev2Month) + '-' + current.getDate();
+            
+            return date90;
+        },
+        currentDateTime180() {
+            var current = new Date();
+            var currentMonth = current.getMonth()
+            var prev2Month = parseInt(currentMonth)-5
+            var prevYear = current.getFullYear()
+            if (parseInt(prev2Month) <= 0) {
+                prevYear = current.getFullYear() - 1;
+                prev2Month = 12 + prev2Month
+            }
+            var date180 = prevYear  + '-' + (prev2Month) + '-' + current.getDate();
+            
+            return date180;
         },
         currentDateTime() {
             var current = new Date();
@@ -207,7 +221,15 @@ export default {
             if(this.datas.length >0) {
                 stock_code = this.datas[0].code
             }
-            this.$refs.PastData.Searchform(stock_code, this.currentDateTime60(), this.currentDateTime());
+            this.$refs.PastData.Searchform(stock_code, this.currentDateTime90(), this.currentDateTime());
+        },
+        showDiagram2() {
+            var stock_code = ""
+
+            if(this.datas.length >0) {
+                stock_code = this.datas[0].code
+            }
+            this.$refs.PastData.Searchform(stock_code, this.currentDateTime180(), this.currentDateTime());
         },
         result() {
             var domain = this.WebUrl + "php_script/" 

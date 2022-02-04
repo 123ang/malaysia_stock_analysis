@@ -176,7 +176,7 @@
                         <td>{{ value.low }}</td>
                         <td>{{ value.volume }}</td>
                         <td>{{ value.volume_signal }}</td>
-                        <td>{{ value.macd_signal}}</td>
+                        <td>{{ value.macd_current_signal}}</td>
                         <td>{{ value.rsi_signal }}</td>
                         <td>{{ value.ma20_signal }}</td>
                         <td>
@@ -214,7 +214,9 @@ export default {
             sector_datas: [],
             sector: "",
             trend: "",
-            feedback: ""
+            feedback: "",
+            technical_analysis: [],
+            candlestick_pattern: [],
         };
     },
     methods: {
@@ -261,8 +263,10 @@ export default {
                         max_price: this.range[1],
                         min_volume: this.volume_range[0],
                         max_volume: this.volume_range[1],
-                        //sector: this.sector,
-                        trend: this.trend
+                        sector: this.sector,
+                        trend: this.trend,
+                        technical_analysis: JSON.stringify(this.technical_analysis),
+                        candlestick_pattern: JSON.stringify(this.candlestick_pattern),
                     }
                 )
                 .then((response) => {
@@ -276,6 +280,7 @@ export default {
                         data.low = parseFloat(data.low);
                         data.volume = parseFloat(data.volume);
                     });
+                    
 
                 })
                 .catch(function (error) {
