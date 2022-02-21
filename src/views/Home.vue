@@ -29,6 +29,20 @@
                 Max Volume: <input type="text" v-model="volume_range[1]" />
             </p>
         </div>
+        <div class="field alpha_avg">
+            <label for="alpha_avg">
+                <span v-if="Language == 'en'">Alpha Average Score:</span>
+                <span v-if="Language == 'cn'">Alpha Average Score:</span>
+            </label>
+            <br><br><br>
+            <VueSimpleRangeSlider style="width: 300px" :min="0" :max="10" :logarithmic="true" v-model="alpha_avg" />
+            <p>
+                Min Score: <input type="text" v-model="alpha_avg[0]" />
+            </p>
+            <p>
+                Max score: <input type="text" v-model="alpha_avg[1]" />
+            </p>
+        </div>
         <div class="field sector">
             <label for="sector">
                 <span v-if="Language == 'en'">Sector:</span>
@@ -161,6 +175,11 @@
                             <span> MA 20 signal</span>
                         </sort-link>
                     </th>
+                    <th>
+                        <sort-link name="alpha_average_score">
+                            <span> Alpha Avg Score</span>
+                        </sort-link>
+                    </th>
                     <th style="color:black;"> Details </th>
                 </tr>
             </thead>
@@ -179,6 +198,7 @@
                         <td>{{ value.macd_current_signal}}</td>
                         <td>{{ value.rsi_signal }}</td>
                         <td>{{ value.ma20_signal }}</td>
+                        <td>{{ value.alpha_avg }}</td>
                         <td>
                             <v-btn dark color="blue" style="margin-right:5px" @click="add_watchlist(value.stock_ID)">
                                 Add to my watchlist
@@ -212,6 +232,7 @@ export default {
             range: [0.1, 0.5],
             volume_range: [1, 100000000],
             sector_datas: [],
+            alpha_avg: [0,10],
             sector: "",
             trend: "",
             feedback: "",
@@ -256,7 +277,8 @@ export default {
         search() {
             console.log(this.range[0])
             let url = this.WebUrl + "php_script/" + "stock_result.php"
-            console.log(url)
+            
+            //console.log(this.alpha_avg)
             axios.post(
                     url, {
                         min_price: this.range[0],
@@ -267,6 +289,8 @@ export default {
                         trend: this.trend,
                         technical_analysis: JSON.stringify(this.technical_analysis),
                         candlestick_pattern: JSON.stringify(this.candlestick_pattern),
+                        min_alpha_avg: this.alpha_avg[0],
+                        max_alpha_avg: this.alpha_avg[1],
                     }
                 )
                 .then((response) => {

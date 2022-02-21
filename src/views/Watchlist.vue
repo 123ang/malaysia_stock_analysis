@@ -58,8 +58,8 @@
                             <span> Candlestick Signal</span>
                         </sort-link>
                     </th>
-                    <th style="color:white">Remark</th>
-                    <th style="color:white" v-if="UserEmail == 'admin@gmail.com'">Target Sell Price</th>
+                    <th style="color:black">Remark</th>
+                    <th style="color:black" v-if="UserEmail == 'admin@gmail.com' || UserEmail == 'angjinsheng@gmail.com'">Target Sell Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -77,7 +77,7 @@
                         <td>{{ value.candlestick_signal }}</td>
 
                         <td><input class="text-white" type="text" v-model="value.remark" /></td>
-                        <td v-if="UserEmail == 'admin@gmail.com'"><input class="text-white" type="text" v-model="value.target_sell_price" /></td>
+                        <td  v-if="UserEmail == 'admin@gmail.com' || UserEmail == 'angjinsheng@gmail.com'"><input class="text-white" type="text" v-model="value.target_sell_price" /></td>
                         <td>
                             <v-btn color="blue" style="margin-right:5px" dark @click="update(value.stock_ID,index)">
                                 Update

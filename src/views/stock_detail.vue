@@ -61,21 +61,61 @@
         <br>
         <v-simple-table style="border: 1px solid black ">
             <tr>
-                <td><b>Earning per Share</b></td>
-                <td>{{ data.eps}}</td>
+                <td><b>52 week low and high</b></td>
+                <td>{{ data.annual_low }} ~ {{ data.annual_high }}</td>
             </tr>
             <tr>
-                <td><b>Book Value per Share</b></td>
-                <td>{{ data.nta }}</td>
+                <td><b>Return on Equuity (ROE)</b></td>
+                <td>{{ data.roe }}</td>
             </tr>
 
             <tr>
-                <td><b>Revenue</b></td>
-                <td>{{ data.revenue }}</td>
+                <td><b>Price to Earning Ratio (P/E)</b></td>
+                <td>{{ data.pe }}</td>
             </tr>
             <tr>
-                <td><b>Profit / Loss</b></td>
-                <td>{{ data.pl }}</td>
+                <td><b>Earning per Share (EPS) (cents) </b></td>
+                <td>{{ data.eps }}</td>
+            </tr>
+            <tr>
+                <td><b>Dividend per per Share (DPS) (cents) </b></td>
+                <td>{{ data.dps }}</td>
+            </tr>
+            <tr>
+                <td><b>Net Tangible Assets per share (NTA) </b></td>
+                <td>{{ data.nta }}</td>
+            </tr>
+            <tr>
+                <td><b>Price to Book Value (P/B) </b></td>
+                <td>{{ data.pb }}</td>
+            </tr>
+            <tr>
+                <td><b> Revenue per Share(RPS) </b></td>
+                <td>{{ data.rps }}</td>
+            </tr>
+            <tr>
+                <td><b>Price to Sales ratio (PSR) </b></td>
+                <td>{{ data.psr }}</td>
+            </tr>
+            <tr>
+                <td><b>Market Cap </b></td>
+                <td>{{ data.marketcap }}</td>
+            </tr>
+            <tr>
+                <td><b>Total Shares (mil) </b></td>
+                <td>{{ data.total_share }}</td>
+            </tr>
+            <tr>
+                <td><b>Dividen Last Pay Date</b></td>
+                <td>{{ data.dividen_pay_date }}</td>
+            </tr>
+            <tr>
+                <td><b>Dividen Last Quarter Declared</b></td>
+                <td>{{ data.dividen_quarterly_declared }}</td>
+            </tr>
+            <tr>
+                <td><b>Dividen 5 years average</b></td>
+                <td>{{ data.dividen_5_year}}</td>
             </tr>
         </v-simple-table>
         <br>
@@ -109,6 +149,27 @@
                     <span v-else> {{ data.candlestick_signal }}</span>
 
                 </td>
+            </tr>
+        </v-simple-table>
+        <br/>
+        <v-simple-table style="width:100%">
+            <tr>
+                <th style="border: 1px solid black !important;border-collapse: collapse; width:15%;text-align: center;">Average Score</th>
+                <th style="border: 1px solid black !important;border-collapse: collapse; width:15%;text-align: center;">Earnings</th>
+                <th style="border: 1px solid black !important;border-collapse: collapse; width:15%;text-align: center;">Fundamental</th>
+                <th style="border: 1px solid black !important;border-collapse: collapse; width:15%;text-align: center;">Relative Valuation</th>
+                <th style="border: 1px solid black !important;border-collapse: collapse; width:15%;text-align: center;">Risk</th>
+                <th style="border: 1px solid black !important;border-collapse: collapse; width:15%;text-align: center;">Price Momentum</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black !important;border-collapse: collapse;width:15%;text-align: center;">{{ data.alpha_avg }}</td>
+                <td style="border: 1px solid black !important;border-collapse: collapse;width:15%;text-align: center;">{{ data.alpha_ern }}</td>
+                <td style="border: 1px solid black !important;border-collapse: collapse;width:15%;text-align: center;">{{ data.alpha_fnd }}</td>
+                <td style="border: 1px solid black !important;border-collapse: collapse;width:15%;text-align: center;">{{ data.alpha_val }}</td>
+                <td style="border: 1px solid black !important;border-collapse: collapse;width:15%;text-align: center;">{{ data.alpha_rsk }}</td>
+                <td style="border: 1px solid black !important;border-collapse: collapse;width:15%;text-align: center;">{{ data.alpha_mom }}</td>
+               
+                  
             </tr>
         </v-simple-table>
 
